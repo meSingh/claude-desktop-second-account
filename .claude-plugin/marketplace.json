@@ -1,0 +1,15 @@
+{
+  "name": "mesingh-skills",
+  "description": "Claude skills by Mandeep Singh",
+  "owner": {
+    "name": "Mandeep Singh"
+  },
+  "plugins": [
+    {
+      "name": "claude-desktop-second-account",
+      "source": "./",
+      "description": "Run a second Claude desktop account side by side on macOS: separate login, chats, Claude Code history and Dock icon.",
+      "version": "1.2.0"
+    }
+  ]
+}
