@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a macOS app icon (.icns) for the second Claude instance.
+"""Build a macOS app icon (.icns) for an extra Claude instance.
 
 Styles
   logo    (default) Your own logo on a rounded-square tile. Uses no Anthropic

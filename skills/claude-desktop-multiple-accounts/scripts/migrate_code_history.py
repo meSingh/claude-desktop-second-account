@@ -95,7 +95,7 @@ def main():
         print(f"\nBacked up {dst} -> {backup}")
     os.makedirs(os.path.join(dst, "projects"), exist_ok=True)
     for h in picked:
-        # Merge, so history the second instance already created is kept.
+        # Merge, so history the target instance already created is kept.
         copy_tree_fix_links(os.path.join(projects, h), os.path.join(dst, "projects", h))
     if not a.no_global:
         for g in GLOBAL_ITEMS:
@@ -119,7 +119,7 @@ def main():
             os.chmod(d, 0o600)
         elif os.path.exists(d):
             print("Kept the existing settings.json in the destination (not overwritten).")
-    print("Copied. Restart the second instance to pick up settings.")
+    print("Copied. Restart the target instance to pick up settings.")
 
 
 if __name__ == "__main__":

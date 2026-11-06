@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>claude-desktop-multiple-accounts banner</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1280px; height: 640px; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+    color: #1d1d1f;
+    overflow: hidden;
+    position: relative;
+    background:
+      radial-gradient(900px 520px at 12% 8%, #ffd9c2 0%, rgba(255,217,194,0) 60%),
+      radial-gradient(800px 520px at 92% 18%, #d9ddff 0%, rgba(217,221,255,0) 62%),
+      radial-gradient(900px 600px at 60% 110%, #ffc9a8 0%, rgba(255,201,168,0) 60%),
+      #f6f1ec;
+  }
+  .menubar {
+    position: absolute; inset: 0 0 auto 0; height: 30px;
+    background: rgba(255,255,255,.55);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,.06);
+    display: flex; align-items: center; gap: 22px; padding: 0 20px;
+    font-size: 13.5px;
+  }
+  .menubar .apple { width: 14px; height: 14px; border-radius: 50%; background: #1d1d1f; opacity: .85; }
+  .menubar b { font-weight: 700; }
+  .menubar .right { margin-left: auto; display: flex; gap: 18px; color: #3a3a3c; }
+  .copy { position: absolute; left: 72px; top: 92px; width: 1136px; }
+  .kicker { font-size: 18px; font-weight: 600; color: #c2560c; letter-spacing: .2px; }
+  h1 { font-size: 64px; line-height: 1.04; font-weight: 800; letter-spacing: -1.6px; margin-top: 14px; }
+  .sub { font-size: 23px; line-height: 1.4; color: #48484a; margin-top: 18px; max-width: 900px; }
+  .dock {
+    position: absolute; left: 50%; transform: translateX(-50%); bottom: 34px;
+    display: flex; align-items: flex-end; gap: 18px;
+    padding: 14px 18px 14px;
+    border-radius: 30px;
+    background: rgba(255,255,255,.42);
+    border: 1px solid rgba(255,255,255,.7);
+    box-shadow: 0 18px 50px rgba(60,30,10,.16), inset 0 1px 0 rgba(255,255,255,.8);
+    backdrop-filter: blur(24px);
+  }
+  .app { position: relative; display: flex; flex-direction: column; align-items: center; }
+  .tile {
+    width: 104px; height: 104px; border-radius: 24px;
+    display: grid; place-items: center;
+    box-shadow: 0 6px 16px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.35);
+  }
+  .tile span { font-size: 54px; font-weight: 800; color: #fff; letter-spacing: -1px; }
+  .label { margin-top: 9px; font-size: 14px; font-weight: 600; color: #3a3a3c; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #1d1d1f; opacity: .7; margin-top: 6px; }
+  .t1 { background: linear-gradient(160deg, #f08a4b, #c2560c); }
+  .t2 { background: linear-gradient(160deg, #5b6cff, #3241c9); }
+  .t3 { background: linear-gradient(160deg, #2fb67a, #138055); }
+  .t4 { background: linear-gradient(160deg, #e35d8c, #b02e5c); }
+  .t5 { background: linear-gradient(160deg, #8a6bff, #5a3ed6); }
+  .more { background: rgba(255,255,255,.5); border: 3px dashed rgba(60,60,67,.35); box-shadow: none; }
+  .more span { color: rgba(60,60,67,.55); font-weight: 500; font-size: 64px; }
+  .sep { width: 1px; height: 104px; background: rgba(0,0,0,.14); align-self: flex-start; margin: 0 2px; }
+  .note { position: absolute; right: 26px; bottom: 12px; font-size: 12.5px; color: #6e6e73; }
+</style>
+</head>
+<body>
+  <div class="menubar">
+    <div class="apple"></div>
+    <b>Claude Work</b><span>File</span><span>Edit</span><span>View</span><span>Window</span><span>Help</span>
+    <div class="right"><span>Fri 9:41</span></div>
+  </div>
+
+  <div class="copy">
+    <div class="kicker">A Claude skill for macOS</div>
+    <h1>Run as many Claude desktop<br>accounts on your Mac as you like</h1>
+    <p class="sub">One Claude desktop app per account, side by side. Each with its own login, chats, Claude Code history and Dock icon.</p>
+  </div>
+
+  <div class="dock">
+    <div class="app"><div class="tile t1"><span>A</span></div><div class="label">Personal</div><div class="dot"></div></div>
+    <div class="app"><div class="tile t2"><span>B</span></div><div class="label">Work</div><div class="dot"></div></div>
+    <div class="app"><div class="tile t3"><span>C</span></div><div class="label">Client one</div><div class="dot"></div></div>
+    <div class="app"><div class="tile t4"><span>D</span></div><div class="label">Client two</div><div class="dot"></div></div>
+    <div class="app"><div class="tile t5"><span>E</span></div><div class="label">Side project</div><div class="dot"></div></div>
+    <div class="sep"></div>
+    <div class="app"><div class="tile more"><span>+</span></div><div class="label">Add another</div><div class="dot" style="opacity:0"></div></div>
+  </div>
+
+  <div class="note">Community skill. Not made or endorsed by Anthropic.</div>
+</body>
+</html>

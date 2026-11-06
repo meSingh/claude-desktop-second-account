@@ -1,7 +1,7 @@
 {
-  "name": "claude-desktop-second-account",
-  "description": "Run a second Claude desktop account side by side on macOS: separate login, chats, Claude Code history and Dock icon, without modifying Claude.app.",
-  "version": "1.2.0",
+  "name": "claude-desktop-multiple-accounts",
+  "description": "Run as many Claude desktop apps on macOS as you like, one per account: separate login, chats, Claude Code history and Dock icon, without modifying Claude.app.",
+  "version": "2.0.0",
   "author": { "name": "Mandeep Singh" },
   "license": "MIT"
 }

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Set up, inspect, or remove a second Claude desktop instance on macOS.
+# Set up, inspect, or remove an extra Claude desktop instance on macOS.
 #
 #   setup_instance.sh --name NAME [--icon FILE.icns] [--config-dir DIR] [--apps-dir DIR] [--no-link] [--yes]
 #   setup_instance.sh --name NAME --status
@@ -69,30 +69,6 @@ link_shared() {
   [ $YES -eq 1 ] && args+=(--yes)
   /usr/bin/python3 -I "$LINKER" "${args[@]}"
 }
-apply_defaults() {
-  # Settings every instance gets, linked or not (assets/default-settings.json):
-  # attribution hidden in commits and PRs. Only keys the instance hasn't set
-  # are added, so a user's own choice is never overwritten. `"attribution":
-  # false` needs Claude Code v2.1.281+; older versions skip the whole file.
-  /usr/bin/python3 -I - "$SKILL_DIR/assets/default-settings.json" "$CONFIG/settings.json" "$YES" <<'PY'
-import json, os, sys
-defaults_file, target, yes = sys.argv[1], sys.argv[2], sys.argv[3] == "1"
-current = json.load(open(target)) if os.path.isfile(target) else {}
-missing = {k: v for k, v in json.load(open(defaults_file)).items() if k not in current}
-if not missing:
-    print("  defaults  already set in settings.json")
-    sys.exit()
-print(f"  defaults  {target}  (adds {', '.join(missing)})")
-if yes:
-    os.makedirs(os.path.dirname(target), exist_ok=True)
-    tmp = target + ".tmp"
-    with open(tmp, "w") as fh:
-        json.dump({**current, **missing}, fh, indent=2)
-        fh.write("\n")
-    os.chmod(tmp, 0o600)
-    os.replace(tmp, target)
-PY
-}
 
 case "$MODE" in
 status)
@@ -111,7 +87,6 @@ status)
 link)
   [ -d "$CONFIG" ] || { echo "$CONFIG not found. Set up the instance first." >&2; exit 1; }
   link_shared
-  apply_defaults
   if [ -d "$LAUNCHER" ] && ! grep -q link_shared.py "$LAUNCHER/Contents/Resources/launch.sh" 2>/dev/null; then
     say "Note: this launcher predates linking, so it won't keep settings and MCP servers in sync."
     say "      Rebuild it with: setup_instance.sh --name \"$NAME\" --config-dir \"$CONFIG\" --icon <icns> --force --yes"
@@ -208,6 +183,5 @@ if [ $YES -eq 1 ]; then
 fi
 say
 if [ $LINK -eq 1 ]; then link_shared; fi
-apply_defaults
-[ $YES -eq 1 ] && say "Done. Open '$NAME' from $APPS_DIR (or Spotlight) and sign in with the second account."
+[ $YES -eq 1 ] && say "Done. Open '$NAME' from $APPS_DIR (or Spotlight) and sign in with the account for this instance."
 exit 0

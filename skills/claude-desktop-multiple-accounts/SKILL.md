@@ -1,18 +1,18 @@
 ---
-name: claude-desktop-second-account
-description: Set up a second, fully separate Claude desktop app on macOS so two accounts (typically personal + work) run side by side, each with its own login, chats, MCP config, Claude Code history and a distinct Dock icon. Also moves Claude Code history/memory and Chat Projects between the two. Use this whenever someone wants to run Claude desktop with two accounts at once, separate work and personal Claude, "clone" or "duplicate" the Claude app, get a second Claude in the Dock, stop switching accounts, give the work Claude its own icon, or move their projects/history from one Claude account to the other — even if they don't say "instance" or "profile". macOS only.
+name: claude-desktop-multiple-accounts
+description: Run as many separate Claude desktop apps on macOS as you like, one per account (personal, work, each client), side by side, each with its own login, chats, MCP config, Claude Code history and a distinct Dock icon. Also moves Claude Code history/memory and Chat Projects between them. Use this whenever someone wants to run Claude desktop with two or more accounts at once, separate work and personal Claude, "clone" or "duplicate" the Claude app, get another Claude in the Dock, stop switching accounts, give each account its own icon, or move their projects/history from one Claude account to another, even if they don't say "instance" or "profile". macOS only.
 ---
 
-# Second Claude desktop account (macOS)
+# Multiple Claude desktop accounts (macOS)
 
 Community skill, not made or endorsed by Anthropic.
 
 The Claude desktop app keeps everything account-specific in one profile folder
 (`~/Library/Application Support/Claude`) and Claude Code keeps its own state in
-`~/.claude`. Starting a second copy of the app pointed at a different profile
+`~/.claude`. Starting another copy of the app pointed at a different profile
 folder (`--user-data-dir`) and a different Code config folder
-(`CLAUDE_CONFIG_DIR`, an officially documented variable) gives a clean second
-instance. Nothing in the real `Claude.app` is modified, so its code signature,
+(`CLAUDE_CONFIG_DIR`, an officially documented variable) gives a clean, separate
+instance. Repeat it for as many accounts as you need. Nothing in the real `Claude.app` is modified, so its code signature,
 Keychain access and auto-updates keep working.
 
 The one wrinkle is the Dock: two processes of the same app share one Dock icon.
@@ -28,7 +28,7 @@ their plan; show it, then rerun with `--yes`. Read-only checks (versions, paths,
 `--status`) are fine without asking.
 
 If you are running *inside* the user's existing Claude desktop app, never quit
-or kill Claude processes yourself: both instances share the binary name and you
+or kill Claude processes yourself: all instances share the binary name and you
 could close the session you're in. Ask the user to press ⌘Q in the right window.
 
 ## Workflow
@@ -87,16 +87,6 @@ can look empty in a new instance even though every skill works in Code sessions
 empty; if those sections are missing entirely, Developer Mode (Help →
 Troubleshooting) may need enabling in that instance.
 
-**Default settings (always applied, linked or not).** Setup and `--link` add the
-keys in `assets/default-settings.json` to the instance's `settings.json` when
-it hasn't set them. Today that's `"attribution": false`, so Claude Code adds no
-Co-Authored-By trailer, PR footer or session link. `false` needs Claude Code
-v2.1.281 or later, and an older version skips the whole settings file. The
-desktop app bundles a newer one, but check `claude --version` for any terminal
-install that reads the same folder (run `claude update` first). On a machine
-that must stay older, use `{"commit": "", "pr": "", "sessionUrl": false}`
-instead. Add more house defaults to that file.
-
 Use `--no-link` for a fully independent instance, e.g. one for a company whose
 policies shouldn't pick up personal skills, hooks or MCP servers. Ask the user
 if that might apply. For an instance set up without linking, or before this
@@ -110,7 +100,7 @@ step existed: `setup_instance.sh --name "<Name>" --link` (dry run), then
 Tell the user:
 - Open `<Name>` from Applications or Spotlight. It should show a **sign-in screen**. If it opens already signed in to the first account, the profile flag was ignored: stop and investigate.
 - Sign in with the **email code** option if possible. Browser sign-in (Google SSO) returns through a `claude://` link that macOS may hand to the *other* instance. If that happens, quit the first instance during sign-in only.
-- Pin the **launcher** to the Dock, not the running icon. "Keep in Dock" on the running icon pins the bare app copy, which opens without the second profile and just focuses the first instance.
+- Pin the **launcher** to the Dock, not the running icon. "Keep in Dock" on the running icon pins the bare app copy, which opens without its own profile and just focuses the first instance.
 
 ### 5. Verify
 
@@ -134,10 +124,10 @@ Copies session history and memory for those folders, plus global settings,
 rules, skills (re-pointing relative symlinks that would otherwise break),
 agents and commands. Items already linked by the shared setup are skipped, so
 for a linked instance only history and memory are copied. It leaves out plugins with one machine-wide store
-(claude-mem), because enabling them in both instances mixes the two accounts'
-memory. The code folders themselves don't move; both instances open them in
+(claude-mem), because enabling them in more than one instance mixes the accounts'
+memory. The code folders themselves don't move; every instance opens them in
 place. Old sessions won't show in the new app's sidebar, but memory carries
-over. Have the user quit the second instance first, or at least not be mid-session.
+over. Have the user quit the target instance first, or at least not be mid-session.
 
 Chat Projects (server-side, manual): there is no account-to-account transfer and
 conversations can't be moved. Options: (a) by hand: copy the Project
@@ -157,7 +147,7 @@ falls under that company's admin visibility and policies.
 
 Based on Anthropic's Consumer Terms, Usage Policy and Trademark Guidelines as of
 late 2026; not legal advice, and terms change, so check the current versions:
-- Running two accounts that are each yours (e.g. personal + employer-provided) on one Mac isn't prohibited. What is prohibited: sharing credentials or making your account available to someone else; using extra accounts to get around a ban or product guardrails.
+- Running several accounts that are each yours (e.g. personal + employer-provided) on one Mac isn't prohibited. What is prohibited: sharing credentials or making your account available to someone else; using extra accounts to get around a ban or product guardrails.
 - This method doesn't decompile, reverse-engineer or modify the app; it runs an unmodified copy with documented options.
 - Brand: don't use Anthropic's name or logo in a way that implies affiliation, and don't alter their logo in shared material. That's why the default icon style uses only the user's own logo and nothing Anthropic-made is bundled here.
 - Work accounts are also governed by the employer's agreement and policies.
